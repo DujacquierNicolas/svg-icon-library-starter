@@ -1,20 +1,26 @@
 {
-  "name": "REPLACE_ME",
+  "name": "svg-icon-starter",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.0.1-beta.0",
   "scripts": {
-    "dev": "npm run transform-icons && vite",
-    "build": "npm run build:lib && vite build",
-    "build:lib": "npm run transform-icons && npm run copy-library-assets",
-    "preview": "npm run build && vite preview",
+    "build:library": "npm run transform-icons && npm run compile && npm run copy-library-assets",
+    "compile": "tsc",
+    "build:showcase": "npm run build:library && npm run bundle-showcase && npm run copy-showcase-files",
+    "bundle-showcase": "webpack --config ./showcase/webpack.config.js",
+    "commit": "git-cz",
+    "copy-showcase-files": "cpx showcase/index.html dist/showcase && cpx showcase/styles.css dist/showcase",
+    "copy-library-assets": "cpx package.json dist && cpx README.md dist",
     "transform-icons": "svg-to-ts-files",
-    "copy-library-assets": "cpx package.json dist/icons && cpx README.md dist/icons"
+    "serve": "npm run build:showcase && http-server ./dist/showcase -o",
+    "pack" : "cd dist && npm pack && cd .."
   },
   "devDependencies": {
+    "@mdi/svg": "^4.9.95",
     "cpx": "^1.5.0",
-    "svg-to-ts": "^10.0.0",
-    "vite": "^4.1.0"
+    "svg-to-ts": "^12.0.0",
+    "webpack": "^3.12.0",
+    "@nationalbankbelgium/code-style": "^1.11.0",
+    "typescript": "~5.0.2"
   },
   "repository": {
     "type": "git",

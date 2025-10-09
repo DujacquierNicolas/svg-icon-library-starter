@@ -1,15 +1,6 @@
 {
-    "conversionType": "files",
-    "srcFiles": [
-      "./svg-icons/**/*.svg"
-    ],
-    "outputDirectory": "./dist/icons",
-    "interfaceName": "REPLACE_ME",
-    "typeName": "REPLACE_ME",
-    "prefix": "REPLACE_ME",
-    "generateType": true,
-    "exportCompleteIconSet": true,
-    "optimizeForLazyLoading": true,
-    "modelFileName": "REPLACE_ME.model",
-    "compileSources": true
+    "conversionType":"files",
+    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
+    "interfaceName": "starkIcon",
+    "outputDirectory": "./svg-icons"
 }
