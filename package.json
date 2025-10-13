@@ -3,8 +3,11 @@
   "private": true,
   "version": "0.0.1-beta.0",
   "scripts": {
+    "build" : "npm run clean && npm run build:library",
     "build:library": "npm run transform-icons && npm run compile && npm run copy-library-assets",
-    "compile": "tsc",
+    "clean" : "npx rimraf ./dist && npx rimraf ./svg-icons/build && npx rimraf ./svg-icons/indes.ts",
+    "tsc": "tsc",
+    "compile": "npm run tsc",
     "build:showcase": "npm run build:library && npm run bundle-showcase && npm run copy-showcase-files",
     "bundle-showcase": "webpack --config ./showcase/webpack.config.js",
     "commit": "git-cz",
@@ -12,7 +15,7 @@
     "copy-library-assets": "cpx package.json dist && cpx README.md dist",
     "transform-icons": "svg-to-ts-files",
     "serve": "npm run build:showcase && http-server ./dist/showcase -o",
-    "pack" : "cd dist && npm pack && cd .."
+    "packd" : "cd dist && npm pack && cd .."
   },
   "devDependencies": {
     "@mdi/svg": "^4.9.95",
@@ -20,7 +23,8 @@
     "svg-to-ts": "^12.0.0",
     "webpack": "^3.12.0",
     "@nationalbankbelgium/code-style": "^1.11.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "rimraf": "^6.0.1"
   },
   "repository": {
     "type": "git",
@@ -37,5 +41,9 @@
   "bugs": {
     "url": "https://github.com/kreuzerk/svg-icon-library-starter/issues"
   },
-  "homepage": "https://github.com/kreuzerk/svg-icon-library-starter#readme"
+  "homepage": "https://github.com/kreuzerk/svg-icon-library-starter#readme",
+  "files": [
+    "svg-icons",
+    "README.md"
+  ]
 }

@@ -1,6 +1,6 @@
-export default {
-    root: 'showcase',
-    build: {
-        outDir: '../dist/showcase'
-    }
-}
+// export default {
+//     root: 'showcase',
+//     build: {
+//         outDir: '../dist/showcase'
+//     }
+// }
