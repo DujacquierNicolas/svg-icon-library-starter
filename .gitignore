@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+./svg-icons/index.ts
+./svg-icons/build/*
+
 
 # Editor directories and files
 .vscode/*
