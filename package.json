@@ -12,10 +12,10 @@
     "bundle-showcase": "webpack --config ./showcase/webpack.config.js",
     "commit": "git-cz",
     "copy-showcase-files": "cpx showcase/index.html dist/showcase && cpx showcase/styles.css dist/showcase",
-    "copy-library-assets": "cpx package.json dist && cpx README.md dist",
+    "copy-library-assets": "cpx svg-icons dist && cpx README.md dist && cpx package.json dist",
     "transform-icons": "svg-to-ts-files",
     "serve": "npm run build:showcase && http-server ./dist/showcase -o",
-    "packd" : "cd dist && npm pack && cd .."
+    "pack" : "cd dist && npm pack && cd .."
   },
   "devDependencies": {
     "@mdi/svg": "^4.9.95",
@@ -43,7 +43,6 @@
   },
   "homepage": "https://github.com/kreuzerk/svg-icon-library-starter#readme",
   "files": [
-    "svg-icons",
-    "README.md"
+    "dist"
   ]
 }
