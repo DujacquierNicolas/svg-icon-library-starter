@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./svg-icons",
-    "outDir": "./dist"
-  }
+    "outDir": "./dist",
+    "incremental": false
+  },
 }
