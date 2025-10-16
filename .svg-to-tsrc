@@ -1,6 +1,11 @@
 {
     "conversionType":"files",
-    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
-    "interfaceName": "starkIcon",
-    "outputDirectory": "./svg-icons"
+    "barrelFileName" : "mdiIconsIndex",
+    "generateType" : "true",
+    "typeName" : "mdiIcons",
+    "prefix" : "mdiIcon",
+    "interfaceName" : "mdiIcon",
+    "modelFileName" : "mdi-icons",
+    "srcFiles" : ["./node_modules/@mdi/svg/svg/*.svg"],
+    "outputDirectory" : "./svg-icons"
 }
