@@ -1,11 +1,10 @@
 {
     "conversionType":"files",
-    "barrelFileName" : "mdiIconsIndex",
-    "generateType" : "true",
-    "typeName" : "mdiIcons",
-    "prefix" : "mdiIcon",
-    "interfaceName" : "mdiIcon",
+    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
+    "interfaceName": "mdiIcon",
+    "outputDirectory": "./svg-icons",
+    "prefix": "mdiIcon",
     "modelFileName" : "mdi-icons",
-    "srcFiles" : ["./node_modules/@mdi/svg/svg/*.svg"],
-    "outputDirectory" : "./svg-icons"
+    "generateType" : "true",
+    "typeName" : "mdiIcons"
 }
