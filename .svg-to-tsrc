@@ -1,10 +1,27 @@
 {
+    "additionalModelOutputPath" : null,
+    "barrelFileName" : "index",
+    "compilationOutput" : "ESM",
+    "compileSources" : true,
+    "completeIconSetName" : "",
     "conversionType":"files",
-    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
+    "delimiter" : "SNAKE",
+    "enumName" : "",
+    "exportCompleteIconSet" : false,
+    "generateType" : true,
+    "generateTypeObject" : false,
+    "generateEnum" : false,
+    "iconsFolderName" : "mdi-icons",
     "interfaceName": "mdiIcon",
-    "outputDirectory": "./svg-icons",
-    "prefix": "mdiIcon",
+    "namePrefix" : "",
     "modelFileName" : "mdi-icons",
-    "generateType" : "true",
-    "typeName" : "mdiIcons"
+    "outputDirectory": "./dist",
+    "prefix": "mdiIcon",
+    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
+    "svgoConfig" : null,
+    "tsx" : false,
+    "typeName" : "mdiIcons",
+    "verbose" : false
 }
+
+
