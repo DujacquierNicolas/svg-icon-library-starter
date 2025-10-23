@@ -1,17 +1,18 @@
 {
-  "name": "svg-icon-starter",
+  "name": "@nationalbankbelgium/mdi-ts",
   "private": true,
   "version": "0.0.1-beta.0",
   "scripts": {
-    "build": "npm run clean && npm run build:library",
-    "build:library": "npm run transform-icons && npm run copy-library-assets",
-    "clean": "npx rimraf ./dist && npx rimraf ./svg-icons/build && npx rimraf ./svg-icons/indes.ts",
+    "build": "npm run clean && npm run transform-icons",
+    "clean": "npx rimraf ./dist",
     "commit": "cz",
-    "copy-library-assets": "cpx README.md dist && cpx package.json dist",
-    "pack": "cd dist/ && npm pack && cd ..",
+    "generate:changelog" : "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "generate:changelog-recent": "conventional-changelog -p angular | tail -n +3",
+    "pack": "npm run prepare-library-metadata && cd dist/ && npm pack && cd ..",
     "postinstall": "husky",
-    "transform-icons": "svg-to-ts-files",
-    "clean-package": "node clean-package.js"
+    "prepare-library-metadata": "node clean-package.js",
+    "release": "release-it",
+    "transform-icons": "svg-to-ts-files"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
@@ -20,8 +21,10 @@
     "@mdi/svg": "^4.9.95",
     "@nationalbankbelgium/code-style": "^1.11.0",
     "commitizen": "^4.3.1",
+    "conventional-changelog-cli": "^5.0.0",
     "cz-customizable": "^7.3.0",
     "husky": "^9.1.7",
+    "release-it": "^17.8.2",
     "rimraf": "^6.0.1",
     "svg-to-ts": "^12.0.0"
   },
@@ -33,10 +36,11 @@
     "SVG",
     "icons",
     "library",
-    "mdi"
+    "mdi",
+    "typescript"
   ],
-  "author": "Kevin Kreuzer",
-  "license": "ISC",
+  "author": "Nicolas Dujacquier",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kreuzerk/svg-icon-library-starter/issues"
   },
