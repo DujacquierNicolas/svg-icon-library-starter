@@ -3,20 +3,27 @@
   "private": true,
   "version": "0.0.1-beta.0",
   "scripts": {
-    "build" : "npm run clean && npm run build:library",
+    "build": "npm run clean && npm run build:library",
     "build:library": "npm run transform-icons && npm run copy-library-assets",
-    "clean" : "npx rimraf ./dist && npx rimraf ./svg-icons/build && npx rimraf ./svg-icons/indes.ts",
+    "clean": "npx rimraf ./dist && npx rimraf ./svg-icons/build && npx rimraf ./svg-icons/indes.ts",
+    "commit": "cz",
     "copy-library-assets": "cpx README.md dist && cpx package.json dist",
-    "pack" : "cd dist/ && npm pack && cd ..",
+    "pack": "cd dist/ && npm pack && cd ..",
+    "postinstall": "husky",
     "transform-icons": "svg-to-ts-files",
-    "clean-package" : "node clean-package.js"
+    "clean-package": "node clean-package.js"
   },
   "devDependencies": {
-    "@mdi/svg": "^4.9.95",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@deboxsoft/cpx": "^1.5.0",
-    "svg-to-ts": "^12.0.0",
+    "@mdi/svg": "^4.9.95",
     "@nationalbankbelgium/code-style": "^1.11.0",
-    "rimraf": "^6.0.1"
+    "commitizen": "^4.3.1",
+    "cz-customizable": "^7.3.0",
+    "husky": "^9.1.7",
+    "rimraf": "^6.0.1",
+    "svg-to-ts": "^12.0.0"
   },
   "repository": {
     "type": "git",
@@ -33,5 +40,10 @@
   "bugs": {
     "url": "https://github.com/kreuzerk/svg-icon-library-starter/issues"
   },
-  "homepage": "https://github.com/kreuzerk/svg-icon-library-starter#readme"
+  "homepage": "https://github.com/kreuzerk/svg-icon-library-starter#readme",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  }
 }
