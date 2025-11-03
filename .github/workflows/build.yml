@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+      - test-migration-angular
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  
+
+jobs:
+  build:
+    name: Build and Pack
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint (if present)
+        run: npm run lint --if-present
+
+      - name: Build library
+        run: npm run build
+
+      - name: Pack library (npm pack -> .tgz in dist/)
+        run: npm run pack
+
+      - name: Upload built package
+        uses: actions/upload-artifact@v4
+        with:
+          name: packaged-dist
+          path: dist/*.tgz
