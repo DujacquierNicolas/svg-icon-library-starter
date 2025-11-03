@@ -16,9 +16,14 @@
     "namePrefix" : "",
     "modelFileName" : "mdi-icons",
     "outputDirectory": "./dist",
-    "prefix": "mdiIcon",
-    "srcFiles": ["./node_modules/@mdi/svg/svg/*.svg"],
-    "svgoConfig" : null,
+    "prefix" : "mdiIcon",
+    "srcFiles" : ["./node_modules/@mdi/svg/svg/*.svg"],
+    "svgoConfig" : {
+        "plugins" : [{
+            name: 'preset-default'
+        },
+        "removeDimensions"]
+    },
     "tsx" : false,
     "typeName" : "mdiIcons",
     "verbose" : false
