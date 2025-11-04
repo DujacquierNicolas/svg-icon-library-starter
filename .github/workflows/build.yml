@@ -9,41 +9,82 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  
+env:
+  TZ: "Europe/Brussels"
+  MAIN_NODEJS: "20"
+  NPM_VERSION: "10.x"
+  LOGS_DIR: /tmp/mdi-ts/logs
+  LOGS_FILE: /tmp/mdi-ts/logs/build-perf.log
+  HUSKY: 0
 
 jobs:
   build:
     name: Build and Pack
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ["20"]
+        os: [ubuntu-latest]
 
     steps:
+      - name: Set environment variable 'IS_MAIN_ENVIRONMENT'
+        run: |
+          if [[ '${{ matrix.node_version }}' == '${{ env.MAIN_NODEJS }}' ]] && [[ '${{ matrix.os }}' == 'ubuntu-latest' ]]; then
+            echo "IS_MAIN_ENVIRONMENT=1" >> $GITHUB_ENV
+          else
+            echo "IS_MAIN_ENVIRONMENT=0" >> $GITHUB_ENV
+          fi  
+
       - name: Checkout Repository
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: ${{ matrix.node_version }}
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules-${{ matrix.node_version }}-${{ matrix.os }}
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Get tag name if exists
+        run: |
+          TAG_NAME=$(echo $GITHUB_REF | sed -n "s/^refs\/tags\/\(\S*\).*$/\1/p")
+          echo "GH_ACTIONS_TAG=${TAG_NAME}" >> $GITHUB_ENV
+
+      - name: List main variables
+        run: |
+          echo "Commit SHA  : ${GITHUB_SHA}"
+          echo "Tag name    : ${{ env.GH_ACTIONS_TAG }}"
+          echo "Reference   : ${GITHUB_REF}"
+          echo "Head branch : ${GITHUB_HEAD_REF}"
+          echo "Base branch : ${GITHUB_BASE_REF}"
+          echo "Build number: ${GITHUB_RUN_NUMBER}"
+          echo "Repository  : ${GITHUB_REPOSITORY}"
+          echo "Event       : ${GITHUB_EVENT_NAME}"
+          echo "Author      : ${GITHUB_ACTOR}"
+          echo "Main ENV    : ${{ env.IS_MAIN_ENVIRONMENT }}"
+          NODE_VERSION="$(node -v)"
+          echo "Node version: $NODE_VERSION"
+
+      - name: Install npm ${{ env.NPM_VERSION }}
+        run: npm i -g npm@${{ env.NPM_VERSION }}
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Run lint (if present)
-        run: npm run lint --if-present
 
       - name: Build library
         run: npm run build
 
       - name: Pack library (npm pack -> .tgz in dist/)
         run: npm run pack
-
-      - name: Upload built package
-        uses: actions/upload-artifact@v4
-        with:
-          name: packaged-dist
-          path: dist/*.tgz
